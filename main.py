@@ -6,7 +6,7 @@ from aiogram import Bot,Dispatcher
 
 from app.router import router
 from app.test import router1
-TOKEN='6810479586:AAFpX9MavDduK-9iNTpx269MkbveRXNo5Jw'
+TOKEN='7426182095:AAGfJ29YxDxy1uczYyJ_JjodnHjUA0aAT78'
 
 
 
