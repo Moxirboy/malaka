@@ -17,8 +17,7 @@ dp=Dispatcher()
 @dp.message(CommandStart())
 async def cmd_start(message:Message):
     # Send the welcome message with the inline keyboard
-    messages=message.from_user.full_name
-    await bot.send_message(chat_id=4243210915,text=messages)
+    print(message.from_user.full_name)
     await message.answer("Testlar felsher mutahassisligi bo'yicha atestatsiyadan o'tish uchun bir necha daqiqada 50 ta savolga\nqancha to'g'ri javob topishingizni bilib oling./test")
 
 async def main():
