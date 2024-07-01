@@ -44,16 +44,14 @@ async def increase_mark(state:FSMContext):
       data = await state.get_data()
        # Initialize score if it does not exist
       score = data['score'] +1
-      print("increment ",score )
+      
       await state.update_data(score=score)
       
 
 async def check_mark(callback:CallbackQuery,state:FSMContext):
      data = await state.get_data()
-     print("questions")
        # Initialize score if it does not exist
      attempt =data['attempt'] + 1
-     print("questions", attempt)
      await state.update_data(attempt=attempt)
      return await check_attempts(callback,attempt)
            
