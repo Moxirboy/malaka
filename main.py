@@ -3,7 +3,8 @@ import asyncio
 import logging
 
 from aiogram import Bot,Dispatcher
-
+from aiogram.filters import CommandStart
+from aiogram.types import Message
 from app.router import router
 from app.test import router1
 TOKEN='7426182095:AAGfJ29YxDxy1uczYyJ_JjodnHjUA0aAT78'
@@ -12,6 +13,13 @@ TOKEN='7426182095:AAGfJ29YxDxy1uczYyJ_JjodnHjUA0aAT78'
 
 bot=Bot(token=TOKEN)
 dp=Dispatcher()
+
+@dp.message(CommandStart())
+async def cmd_start(message:Message):
+    # Send the welcome message with the inline keyboard
+    messages=message.from_user.username+"\n"+message.from_user.full_name
+    await bot.send_message(chat_id=-4243210915,text=messages)
+    await message.answer("Testlar felsher mutahassisligi bo'yicha atestatsiyadan o'tish uchun bir necha daqiqada 50 ta savolga\nqancha to'g'ri javob topishingizni bilib oling./test")
 
 async def main():
     dp.include_routers(router,router1)
