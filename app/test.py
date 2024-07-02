@@ -22,8 +22,7 @@ router1=Router()
 @router1.message(Command('test'))
 async def reg_test(message: Message,state: FSMContext):
      
-     await state.update_data(score=0)
-     await state.update_data(attempt=0)
+     await state.update_data(score=0,attempt=0)
      await message.answer("button bosing",
                           reply_markup=kb.test_inline)
 
@@ -43,7 +42,8 @@ async def start_test(callback:CallbackQuery,state:FSMContext):
 async def increase_mark(state:FSMContext):
       data = await state.get_data()
        # Initialize score if it does not exist
-      score = data['score'] +1
+      sc=data['score']
+      score =  sc+1
       
       await state.update_data(score=score)
       
@@ -51,7 +51,8 @@ async def increase_mark(state:FSMContext):
 async def check_mark(callback:CallbackQuery,state:FSMContext):
      data = await state.get_data()
        # Initialize score if it does not exist
-     attempt =data['attempt'] + 1
+     sc=data['attempt']
+     attempt = sc+ 1
      await state.update_data(attempt=attempt)
      return await check_attempts(callback,attempt)
            
