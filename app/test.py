@@ -21,13 +21,17 @@ class Reg1(StatesGroup):
 router1=Router()
 @router1.message(Command('test'))
 async def reg_test(message: Message,state: FSMContext):
-     
+     print(message.from_user.full_name)
      await state.update_data(score=0,attempt=0)
      await message.answer("Tugmani bosing",
                           reply_markup=kb.test_inline)
 
 @router1.callback_query(F.data=='start_test')
 async def start_test(callback:CallbackQuery,state:FSMContext):
+    
+
+
+
     result=await check_mark(callback,state)
     await callback.answer('')
     if not result:
@@ -57,7 +61,6 @@ async def increase_mark(state:FSMContext):
           await state.update_data(score=0)
           sc=data['score']
       score =  sc+1
-      print(score)
       await state.update_data(score=score)
       
 
