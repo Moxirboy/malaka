@@ -35,12 +35,12 @@ async def start_test(callback:CallbackQuery,state:FSMContext):
           try:
                question,choices=qt()
                await callback.message.edit_text(question[1],
-                                           reply_markup=await kb.reply_keyboard(choices))
+                                           reply_markup=await kb.inline_keyboard(choices))
           except Exception as e:
                print(f"exception {e}")
                question,choices=qt()
                await callback.message.edit_text(question[1],
-                                           reply_markup=await kb.reply_keyboard(choices))
+                                           reply_markup=await kb.inline_keyboard(choices))
                
     else:
          await callback.message.edit_text("Savollar tugadi ",
