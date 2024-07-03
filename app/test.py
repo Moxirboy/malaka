@@ -57,7 +57,7 @@ async def increase_mark(state:FSMContext):
           await state.update_data(score=0)
           sc=data['score']
       score =  sc+1
-      
+      print(score)
       await state.update_data(score=score)
       
 
@@ -71,6 +71,7 @@ async def check_mark(callback:CallbackQuery,state:FSMContext):
           await state.update_data(attempt=0)
           sc=data['attempt']
      attempt = sc+ 1
+     print(attempt)
      await state.update_data(attempt=attempt)
      return await check_attempts(callback,attempt)
            
