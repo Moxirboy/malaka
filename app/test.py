@@ -26,11 +26,10 @@ async def reg_test(message: Message,state: FSMContext):
      await message.answer("Tugmani bosing",
                           reply_markup=kb.test_inline)
 
-car=["moshina","bwm"]
-care=["moshinaa","bwma"]
 @router1.callback_query(F.data=='start_test')
 async def start_test(callback:CallbackQuery,state:FSMContext):
     result=await check_mark(callback,state)
+    await callback.answer('')
     if not result:
           try:
                question,choices=qt()
@@ -50,6 +49,7 @@ async def start_test(callback:CallbackQuery,state:FSMContext):
 async def increase_mark(state:FSMContext):
       data = await state.get_data()
        # Initialize score if it does not exist
+       
       try:
           sc=data['score']
       except Exception as e:
@@ -85,7 +85,7 @@ async def check_attempts(callback:CallbackQuery,attempt):
 @router1.callback_query(F.data=='true_answer') 
 async def answer_true(callback:CallbackQuery,state:FSMContext):
      await increase_mark(state)
-     
+     await callback.answer('')
      await callback.message.edit_text(
                text="tog'ri javob",
                reply_markup=kb.next
@@ -96,6 +96,7 @@ async def answer_true(callback:CallbackQuery,state:FSMContext):
 
 @router1.callback_query(F.data=='false_answer') 
 async def answer_false(callback:CallbackQuery,state:FSMContext):
+     await callback.answer('')
      await callback.message.edit_text(
                text="Notog'ri javob",
                reply_markup=kb.next
@@ -104,7 +105,7 @@ async def answer_false(callback:CallbackQuery,state:FSMContext):
 
 @router1.callback_query(F.data=='end_test')
 async def end_test(callback:CallbackQuery,state:FSMContext):
-    
+    await callback.answer('')
     data=await state.get_data()
     await callback.message.edit_text(f"To'g'ri topilgan 50ta savoldan  {data['score']} tasi to'g'ri\nYana test yechish uchun /test bosin",)
 
