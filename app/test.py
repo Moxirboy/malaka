@@ -54,7 +54,7 @@ async def increase_mark(state:FSMContext):
           sc=data['score']
       except Exception as e:
           print(f"exception {e}")
-          await state.update_data(attempt=0)
+          await state.update_data(score=0)
           sc=data['score']
       score =  sc+1
       
