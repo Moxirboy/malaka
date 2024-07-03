@@ -107,10 +107,10 @@ async def answer_false(callback:CallbackQuery,state:FSMContext):
 async def end_test(callback:CallbackQuery,state:FSMContext):
     await callback.answer('')
     data=await state.get_data()
-    print(f"{callback.from_user.username}:{data['score']}")
+    
     
     await callback.message.edit_text(f"To'g'ri topilgan 50ta savoldan  {data['score']} tasi to'g'ri\nYana test yechish uchun /test bosin",)
-
+    print(f"{callback.from_user.username}:{data['score']}")
     await state.clear()
     
 
