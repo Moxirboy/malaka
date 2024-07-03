@@ -71,7 +71,6 @@ async def check_mark(callback:CallbackQuery,state:FSMContext):
           await state.update_data(attempt=0)
           sc=data['attempt']
      attempt = sc+ 1
-     print(attempt)
      await state.update_data(attempt=attempt)
      return await check_attempts(callback,attempt)
            

@@ -67,6 +67,8 @@ async def reply_keyboard(cars):
 import random
 async def inline_keyboard(cars):
     buttons = []
+    if not cars:
+        buttons.append(InlineKeyboardButton(text="Javoblari yoq keyingi savolga o'tish", callback_data='start_test'))
     i=0
     for car in cars:
         if i == 0:
