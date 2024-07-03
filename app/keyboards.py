@@ -53,9 +53,15 @@ settings=InlineKeyboardMarkup(
 
 
 async def reply_keyboard(cars):
-    keyboard=ReplyKeyboardBuilder()
+    keyboard=InlineKeyboardBuilder()
+    i=0
     for car in cars:
-        keyboard.add(KeyboardButton(text=car))
+        if i == 0:
+            keyboard.add(InlineKeyboardButton(text=car, callback_data='true_answer'))
+            i+=1
+        else:
+            keyboard.add(InlineKeyboardButton(text=car, callback_data='false_answer'))
+        
     return keyboard.adjust(3).as_markup()
 
 import random

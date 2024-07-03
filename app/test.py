@@ -23,17 +23,25 @@ router1=Router()
 async def reg_test(message: Message,state: FSMContext):
      
      await state.update_data(score=0,attempt=0)
-     await message.answer("button bosing",
+     await message.answer("Tugmani bosing",
                           reply_markup=kb.test_inline)
 
-
+car=["moshina","bwm"]
+care=["moshinaa","bwma"]
 @router1.callback_query(F.data=='start_test')
 async def start_test(callback:CallbackQuery,state:FSMContext):
     result=await check_mark(callback,state)
     if not result:
-          question,choices=qt()
-          await callback.message.edit_text(question[1],
-                                           reply_markup=await kb.inline_keyboard(choices))
+          try:
+               question,choices=qt()
+               await callback.message.edit_text(question[1],
+                                           reply_markup=await kb.reply_keyboard(choices))
+          except Exception as e:
+               print(f"exception {e}")
+               question,choices=qt()
+               await callback.message.edit_text(question[1],
+                                           reply_markup=await kb.reply_keyboard(choices))
+               
     else:
          await callback.message.edit_text("Savollar tugadi ",
                                              reply_markup=kb.result)
@@ -42,7 +50,12 @@ async def start_test(callback:CallbackQuery,state:FSMContext):
 async def increase_mark(state:FSMContext):
       data = await state.get_data()
        # Initialize score if it does not exist
-      sc=data['score']
+      try:
+          sc=data['score']
+      except Exception as e:
+          print(f"exception {e}")
+          await state.update_data(attempt=0)
+          sc=data['score']
       score =  sc+1
       
       await state.update_data(score=score)
@@ -51,7 +64,12 @@ async def increase_mark(state:FSMContext):
 async def check_mark(callback:CallbackQuery,state:FSMContext):
      data = await state.get_data()
        # Initialize score if it does not exist
-     sc=data['attempt']
+     try:
+          sc=data['attempt']
+     except Exception as e:
+          print(f"exception {e}")
+          await state.update_data(attempt=0)
+          sc=data['attempt']
      attempt = sc+ 1
      await state.update_data(attempt=attempt)
      return await check_attempts(callback,attempt)
@@ -88,7 +106,7 @@ async def answer_false(callback:CallbackQuery,state:FSMContext):
 async def end_test(callback:CallbackQuery,state:FSMContext):
     
     data=await state.get_data()
-    await callback.message.edit_text(f"To'g'ri topilgan savollar soni {data['score']} ta\nYana test yechish uchun /test bosin",)
+    await callback.message.edit_text(f"To'g'ri topilgan 50ta savoldan  {data['score']} tasi to'g'ri\nYana test yechish uchun /test bosin",)
 
     await state.clear()
     
