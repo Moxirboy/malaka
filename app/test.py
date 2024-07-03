@@ -28,10 +28,6 @@ async def reg_test(message: Message,state: FSMContext):
 
 @router1.callback_query(F.data=='start_test')
 async def start_test(callback:CallbackQuery,state:FSMContext):
-    
-
-
-
     result=await check_mark(callback,state)
     await callback.answer('')
     if not result:
@@ -48,32 +44,33 @@ async def start_test(callback:CallbackQuery,state:FSMContext):
     else:
          await callback.message.edit_text("Savollar tugadi ",
                                              reply_markup=kb.result)
-     
+
 
 async def increase_mark(state:FSMContext):
-      data = await state.get_data()
+     data = await state.get_data()
        # Initialize score if it does not exist
-       
-      try:
+     sc=0
+     try:
           sc=data['score']
-      except Exception as e:
-          print(f"exception {e}")
+     except KeyError:
+          print("score key not found in data, setting attempt to 0")
           await state.update_data(score=0)
-          sc=data['score']
-      score =  sc+1
-      await state.update_data(score=score)
+          sc = 0
+     score =  sc+1
+     await state.update_data(score=score)
       
 
 async def check_mark(callback:CallbackQuery,state:FSMContext):
      data = await state.get_data()
        # Initialize score if it does not exist
+     sc=0
      try:
-          sc=data['attempt']
-     except Exception as e:
-          print(f"exception {e}")
+          sc = data['attempt']
+     except KeyError:
+          print("Attempt key not found in data, setting attempt to 0")
           await state.update_data(attempt=0)
-          sc=data['attempt']
-     attempt = sc+ 1
+          sc = 0
+     attempt = sc + 1
      await state.update_data(attempt=attempt)
      return await check_attempts(callback,attempt)
            
