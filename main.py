@@ -30,7 +30,7 @@ async def web_app():
     app.router.add_get('/', handle)
     runner = web.AppRunner(app)
     await runner.setup()
-    site = web.TCPSite(runner, 'localhost', 10000)
+    site = web.TCPSite(runner, '0.0.0.0', 10000)
     await site.start()
 
 # Main function to run both bot and web server
