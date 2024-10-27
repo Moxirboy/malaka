@@ -6,7 +6,8 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 from app.router import router
 from app.test import router1
-
+import os
+port = int(os.environ.get("PORT", 4000))
 TOKEN = '7426182095:AAGfJ29YxDxy1uczYyJ_JjodnHjUA0aAT78'
 
 bot = Bot(token=TOKEN)
@@ -31,7 +32,7 @@ async def web_app():
     app.router.add_get('/', handle)
     runner = web.AppRunner(app)
     await runner.setup()
-    site = web.TCPSite(runner, 'localhost', 4000)
+    site = web.TCPSite(runner, 'localhost', port)
     await site.start()
 
 # Main function to run both bot and web server
